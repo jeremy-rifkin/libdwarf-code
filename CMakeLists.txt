@@ -274,71 +274,76 @@ int main()
 
 message(STATUS "CMAKE_SIZEOF_VOID_P ... " ${CMAKE_SIZEOF_VOID_P} )
 
-# libdwarf
-option(BUILD_NON_SHARED "build archive library libdwarf[p].a" TRUE)
-option(BUILD_SHARED
-    "build shared library libdwarf[p].so and use it" FALSE)
-
-#  This adds compiler option -Wall (gcc compiler warnings)
-option(WALL "Add -Wall" FALSE)
-
-#  DW_FWALLXX are gnu C++ options.
-if (WALL)
-  set(DW_FWALLXX -Wall -Wextra -Wno-unused-private-field -Wpointer-arith -Wmissing-declarations -Wcomment -Wformat -Wpedantic -Wuninitialized -Wshadow -Wno-long-long -Werror)
-  set(DW_FWALL ${DW_FWALLXX} -Wpointer-arith -Wmissing-declarations -Wmissing-prototypes -Wdeclaration-after-statement -Wextra -Wcomment -Wformat -Wpedantic -Wuninitialized -Wno-long-long -Wshadow -Werror )
-  message(STATUS "Compiler warning options... YES ${DW_FWALL}")
-else()
-  unset(DW_FWALL )
-  message(STATUS "Compiler warning options... NO")
-endif()
-
-option(BUILD_DWARFGEN "Build dwarfgen (default is NO)" FALSE)
-message(STATUS "Building dwarfgen    ... ${BUILD_DWARFGEN}")
-
-option(BUILD_DWARFEXAMPLE "Build dwarfexample (default is NO)" FALSE)
-message(STATUS "Building dwarfexample... ${BUILD_DWARFEXAMPLE}")
-
-option(DO_TESTING "Do certain api tests (default is NO)" FALSE)
-message(STATUS "Building api tests   ... ${DOTESTS}")
-### end what was configure.cmake
-
+add_subdirectory(src/lib/libdwarf)
 configure_file(cmake/config.h.cmake config.h)
 
-if(BUILD_NON_SHARED)
-    set(BUILD_SHARED_LIBS NO)
-	set(DWARF_TARGETS dwarf-static)
-	set(DWARF_TYPES STATIC)
-	set(dwarf-target dwarf-static)
-	set(DWARFP_TARGETS dwarfp-static)
-	set(DWARFP_TYPES STATIC)
-	set(dwarfp-target dwarfp-static)
-else()
-    set(BUILD_SHARED_LIBS YES)
-	set(DWARF_TARGETS dwarf-shared)
-	set(DWARF_TYPES SHARED)
-	set(dwarf-target dwarf-shared)
-	set(DWARFP_TARGETS dwarfp-shared)
-	set(DWARFP_TYPES SHARED)
-	set(dwarfp-target dwarfp-shared)
-endif()
 
-add_subdirectory(src/lib/libdwarf)
-add_subdirectory(src/bin/dwarfdump)
 
-if ( BUILD_DWARFEXAMPLE )
-	add_subdirectory(src/bin/dwarfexample)
-endif()
-if (DO_TESTING)
-add_subdirectory(test)
-endif()
+# # libdwarf
+# option(BUILD_NON_SHARED "build archive library libdwarf[p].a" TRUE)
+# option(BUILD_SHARED
+#     "build shared library libdwarf[p].so and use it" FALSE)
 
-if ( BUILD_DWARFGEN )
-     set(LIBDWARF_INCLUDE_DIR ../libdwarf)
-     add_subdirectory(src/lib/libdwarfp)
-     add_subdirectory(src/bin/dwarfgen)
-endif()
+# #  This adds compiler option -Wall (gcc compiler warnings)
+# option(WALL "Add -Wall" FALSE)
 
-message(STATUS "Install prefix ... ${CMAKE_INSTALL_PREFIX}" )
-# installation of libdwarf[p] has to be in
-# src/lib/libdwarf[p]/CMakeLists.txt
-# so that it works properly for cmake before cmake 3.13.
+# #  DW_FWALLXX are gnu C++ options.
+# if (WALL)
+#   set(DW_FWALLXX -Wall -Wextra -Wno-unused-private-field -Wpointer-arith -Wmissing-declarations -Wcomment -Wformat -Wpedantic -Wuninitialized -Wshadow -Wno-long-long -Werror)
+#   set(DW_FWALL ${DW_FWALLXX} -Wpointer-arith -Wmissing-declarations -Wmissing-prototypes -Wdeclaration-after-statement -Wextra -Wcomment -Wformat -Wpedantic -Wuninitialized -Wno-long-long -Wshadow -Werror )
+#   message(STATUS "Compiler warning options... YES ${DW_FWALL}")
+# else()
+#   unset(DW_FWALL )
+#   message(STATUS "Compiler warning options... NO")
+# endif()
+
+# option(BUILD_DWARFGEN "Build dwarfgen (default is NO)" FALSE)
+# message(STATUS "Building dwarfgen    ... ${BUILD_DWARFGEN}")
+
+# option(BUILD_DWARFEXAMPLE "Build dwarfexample (default is NO)" FALSE)
+# message(STATUS "Building dwarfexample... ${BUILD_DWARFEXAMPLE}")
+
+# option(DO_TESTING "Do certain api tests (default is NO)" FALSE)
+# message(STATUS "Building api tests   ... ${DOTESTS}")
+# ### end what was configure.cmake
+
+
+
+# if(BUILD_NON_SHARED)
+#     set(BUILD_SHARED_LIBS NO)
+# 	set(DWARF_TARGETS dwarf-static)
+# 	set(DWARF_TYPES STATIC)
+# 	set(dwarf-target dwarf-static)
+# 	set(DWARFP_TARGETS dwarfp-static)
+# 	set(DWARFP_TYPES STATIC)
+# 	set(dwarfp-target dwarfp-static)
+# else()
+#     set(BUILD_SHARED_LIBS YES)
+# 	set(DWARF_TARGETS dwarf-shared)
+# 	set(DWARF_TYPES SHARED)
+# 	set(dwarf-target dwarf-shared)
+# 	set(DWARFP_TARGETS dwarfp-shared)
+# 	set(DWARFP_TYPES SHARED)
+# 	set(dwarfp-target dwarfp-shared)
+# endif()
+
+
+# add_subdirectory(src/bin/dwarfdump)
+
+# if ( BUILD_DWARFEXAMPLE )
+# 	add_subdirectory(src/bin/dwarfexample)
+# endif()
+# if (DO_TESTING)
+# add_subdirectory(test)
+# endif()
+
+# if ( BUILD_DWARFGEN )
+#      set(LIBDWARF_INCLUDE_DIR ../libdwarf)
+#      add_subdirectory(src/lib/libdwarfp)
+#      add_subdirectory(src/bin/dwarfgen)
+# endif()
+
+# message(STATUS "Install prefix ... ${CMAKE_INSTALL_PREFIX}" )
+# # installation of libdwarf[p] has to be in
+# # src/lib/libdwarf[p]/CMakeLists.txt
+# # so that it works properly for cmake before cmake 3.13.
