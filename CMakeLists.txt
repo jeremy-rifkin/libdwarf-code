@@ -9,7 +9,7 @@ include_directories( ${PROJECT_BINARY_DIR} )
 macro(msvc_posix target)
     if(MSVC AND ("${MSVC_VERSION}" LESS 1900))
         # under VS 2015
-	target_compile_definitions(${target} PUBLIC 
+	target_compile_definitions(${target} PUBLIC
 	    snprintf=_snprintf)
     endif()
 endmacro()
@@ -34,7 +34,7 @@ if (CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
     if (LIBDWARF_CRT STREQUAL "MT")
       message(STATUS "Using MT runtime by compile flag replacement")
       # taken from the CMake FAQ
-      foreach(flag_v 
+      foreach(flag_v
       CMAKE_C_FLAGS CMAKE_C_FLAGS_DEBUG
       CMAKE_C_FLAGS_RELEASE CMAKE_C_FLAGS_MINSIZEREL
       CMAKE_C_FLAGS_RELWITHDEBINFO
@@ -100,7 +100,7 @@ include(CheckCSourceRuns)
 include(CheckSymbolExists)
 ### Version also appears in configure.ac
 set(VERSION 0.7.1)
-set(PACKAGE_VERSION "\"${VERSION}\"") 
+set(PACKAGE_VERSION "\"${VERSION}\"")
 set(PACKAGE_NAME "libdwarf" )
 set(PACKAGE_STRING "\"${PACKAGE_NAME} ${VERSION}\"")
 string(REGEX REPLACE "[\"]" "" tarname1 "${PACKAGE_STRING}" )
@@ -112,16 +112,16 @@ if (${isBigEndian})
   set ( WORDS_BIGENDIAN 1 )
 endif()
 
-check_include_file( "sys/types.h"     HAVE_SYS_TYPES_H) 
-check_include_file( "sys/stat.h"      HAVE_SYS_STAT_H ) 
-check_include_file( "inttypes.h"      HAVE_INTTYPES_H   ) 
-check_include_file( "memory.h"        HAVE_MEMORY_H   ) 
-check_include_file( "strings.h"       HAVE_STRINGS_H  ) 
+check_include_file( "sys/types.h"     HAVE_SYS_TYPES_H)
+check_include_file( "sys/stat.h"      HAVE_SYS_STAT_H )
+check_include_file( "inttypes.h"      HAVE_INTTYPES_H   )
+check_include_file( "memory.h"        HAVE_MEMORY_H   )
+check_include_file( "strings.h"       HAVE_STRINGS_H  )
 check_include_file( "stdint.h"        HAVE_STDINT_H   )
 check_include_file( "unistd.h"        HAVE_UNISTD_H   )
 check_include_file( "sgidefs.h"       HAVE_SGIDEFS_H  )
 check_include_file( "stdafx.h"        HAVE_STDAFX_H   )
-check_include_file( "fcntl.h"         HAVE_FCNTL_H   ) 
+check_include_file( "fcntl.h"         HAVE_FCNTL_H   )
 
 ### cmake provides no way to guarantee uint32_t present.
 ### configure does guarantee that.
@@ -148,7 +148,7 @@ else()
   set(uintptr_t "unsigned long long int" )
   message(STATUS "Setting #define uintptr_t " ${uintptr_t})
 endif()
-if (uintptr_t) 
+if (uintptr_t)
   message(STATUS "uintptr_t value considered YES ")
 else()
   message(STATUS "uintptr_t value considered NO ")
@@ -160,7 +160,7 @@ else()
   set(uintptr_t "long long int" )
   message(STATUS "Setting #define intptr_t " ${intptr_t})
 endif()
-if (intptr_t) 
+if (intptr_t)
   message(STATUS "intptr_t value considered YES ")
 else()
   message(STATUS "intptr_t value considered NO ")
@@ -168,13 +168,13 @@ endif()
 
 
 check_c_source_compiles("
-  static unsigned foo( unsigned x, 
+  static unsigned foo( unsigned x,
       __attribute__ ((unused)) int y)
-  {  
+  {
       unsigned x2 = x + 1;
       return x2;
-  } 
-  
+  }
+
   int main(void) {
       unsigned y = 0;
       y = foo(12,y);
@@ -184,8 +184,8 @@ message(STATUS "Checking compiler supports __attribute__ unused... ${HAVE_UNUSED
 
 check_c_source_compiles([=[
   #include "stdafx.h"
-  int main() 
-  { 
+  int main()
+  {
       int p; p = 27;
       return 0;
   }]=] HAVE_STDAFX_H)
@@ -221,7 +221,7 @@ check_c_source_compiles( [=[
       return 0;
   } ]=]  HAVE_ZLIB_H )
 set(CMAKE_REQUIRED_LIBRARIES)
-if (HAVE_ZLIB) 
+if (HAVE_ZLIB)
   # For linking in libz
   set(DW_FZLIB "z")
 endif()
@@ -267,16 +267,16 @@ check_c_source_compiles([=[
 #include <stdint.h>
 int main()
 {
-    intptr_t p; 
+    intptr_t p;
     p = 27;
     return 0;
 }]=] HAVE_INTPTR_T)
 
 message(STATUS "CMAKE_SIZEOF_VOID_P ... " ${CMAKE_SIZEOF_VOID_P} )
 
-# libdwarf  
+# libdwarf
 option(BUILD_NON_SHARED "build archive library libdwarf[p].a" TRUE)
-option(BUILD_SHARED 
+option(BUILD_SHARED
     "build shared library libdwarf[p].so and use it" FALSE)
 
 #  This adds compiler option -Wall (gcc compiler warnings)
