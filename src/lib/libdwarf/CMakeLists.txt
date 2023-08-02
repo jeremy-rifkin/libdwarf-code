@@ -123,6 +123,8 @@ include(FetchContent)
 
 add_library(libdwarf STATIC ${libdwarf_sources} ${libdwarf_headers})
 
+target_compile_definitions(libdwarf PUBLIC LIBDWARF_BUILD)
+
 target_include_directories(
   libdwarf
   PUBLIC
