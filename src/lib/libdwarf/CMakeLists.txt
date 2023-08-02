@@ -129,6 +129,8 @@ target_include_directories(
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
 )
 
+target_link_libraries(libdwarf PUBLIC ${LIBELF_LIBRARIES} ${DW_FZLIB} ${DW_FZSTD})
+
 if(NOT CMAKE_SKIP_INSTALL_RULES)
   include(CMakePackageConfigHelpers)
 
