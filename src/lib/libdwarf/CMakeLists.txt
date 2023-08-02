@@ -121,7 +121,7 @@ set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS ON)
 include(GNUInstallDirs)
 include(FetchContent)
 
-add_library(libdwarf ${libdwarf_sources} ${libdwarf_headers})
+add_library(libdwarf STATIC ${libdwarf_sources} ${libdwarf_headers})
 
 target_include_directories(
   libdwarf
