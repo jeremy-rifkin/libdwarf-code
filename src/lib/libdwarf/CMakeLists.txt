@@ -75,42 +75,48 @@ set(
   dwarf_base_types.h
   dwarf_debugaddr.h
   dwarf_debuglink.h
-  dwarf_die_deliv.h
   dwarf_debugnames.h
+  dwarf_die_deliv.h
   dwarf_dsc.h
+  dwarf_elfread.h
+  dwarf_elfstructs.h
   dwarf_elf_access.h
   dwarf_elf_defines.h
-  dwarf_elfread.h
   dwarf_elf_rel_detector.h
-  dwarf_elfstructs.h
+  dwarf_errmsg_list.h
   dwarf_error.h
   dwarf_frame.h
   dwarf_gdbindex.h
   dwarf_global.h
-  dwarf_harmless.h
   dwarf_gnu_index.h
+  dwarf_harmless.h
   dwarf_line.h
+  dwarf_line_table_reader_common.h
   dwarf_loc.h
   dwarf_machoread.h
+  dwarf_macho_loader.h
   dwarf_macro.h
   dwarf_macro5.h
+  dwarf_memcpy_swap.h
   dwarf_object_detector.h
+  dwarf_object_read_common.h
   dwarf_opaque.h
-  dwarf_pe_descr.h
   dwarf_peread.h
+  dwarf_pe_descr.h
   dwarf_reading.h
   dwarf_rnglists.h
   dwarf_safe_arithmetic.h
   dwarf_safe_strcpy.h
+  dwarf_secname_ck.h
+  dwarf_setup_sections.h
+  dwarf_string.h
+  dwarf_str_offsets.h
   dwarf_tied_decls.h
   dwarf_tsearch.h
-  dwarf_setup_sections.h
-  dwarf_str_offsets.h
   dwarf_util.h
   dwarf_xu_index.h
+  libdwarf.h
   libdwarf_private.h
-  dwarf_macho_loader.h
-  dwarf_memcpy_swap.h
 )
 
 set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS ON)
