@@ -177,7 +177,7 @@ if(NOT CMAKE_SKIP_INSTALL_RULES)
 
   write_basic_package_version_file(
     ${CMAKE_CURRENT_BINARY_DIR}/libdwarf/libdwarf-config-version.cmake
-    VERSION ${PACKAGE_VERSION}
+    VERSION "${VERSION}"
     COMPATIBILITY SameMajorVersion
   )
 
