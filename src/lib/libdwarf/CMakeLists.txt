@@ -121,7 +121,13 @@ set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS ON)
 include(GNUInstallDirs)
 include(FetchContent)
 
-add_library(libdwarf STATIC ${libdwarf_sources} ${libdwarf_headers})
+option(LIBDWARF_BUILD_SHARED "" OFF)
+
+if(LIBDWARF_BUILD_SHARED)
+  add_library(libdwarf SHARED ${libdwarf_sources} ${libdwarf_headers})
+else()
+  add_library(libdwarf STATIC ${libdwarf_sources} ${libdwarf_headers})
+endif()
 
 target_compile_definitions(libdwarf PUBLIC LIBDWARF_BUILD)
 
